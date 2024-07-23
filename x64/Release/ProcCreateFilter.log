@@ -1,10 +1,10 @@
 ﻿  Building 'ProcCreateFilter' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Release\ProcCreateFilter.inf
-  Stamping [Version] section with DriverVer=07/19/2024,14.48.6.352
+  Stamping [Version] section with DriverVer=07/23/2024,17.38.45.640
   Driver.c
-  ProcCreateFilter.vcxproj -> F:\Leto2024\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys
+  ProcCreateFilter.vcxproj -> C:\Users\User\Desktop\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys
   Done Adding Additional Store
-  Successfully signed: F:\Leto2024\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys
+  Successfully signed: C:\Users\User\Desktop\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys
   
   Driver is 'Universal'.
   ........................
@@ -17,9 +17,9 @@
   None
   
   Catalog generation complete.
-  F:\Leto2024\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter\proccreatefilter.cat
+  C:\Users\User\Desktop\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter\proccreatefilter.cat
   Done Adding Additional Store
-  Successfully signed: F:\Leto2024\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter\proccreatefilter.cat
+  Successfully signed: C:\Users\User\Desktop\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter\proccreatefilter.cat
   
   "pwsh.exe" не является внутренней или внешней
   командой, исполняемой программой или пакетным файлом.

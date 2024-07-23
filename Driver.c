@@ -16,14 +16,47 @@ Environment:
 
 #include "driver.h"
 #include <stdio.h>
-
 #include <ntddk.h>
 
 NTKERNELAPI PCHAR PsGetProcessImageFileName(PEPROCESS Process);
 NTKERNELAPI NTSTATUS PsLookupProcessByProcessId(HANDLE ProcessId, PEPROCESS* Process);
 BOOLEAN notifyCreateProcess();
+void myitoa(int x, char* rez);
 HANDLE logHandle;
 BOOLEAN isNotifyCreate = 1;
+
+
+void myitoa(int x, char* rez) {
+    IO_STATUS_BLOCK logWriteStatus;
+    NTSTATUS writeStatus;
+    char result_reverce[40] = { 0 };
+    char result[40] = {0};
+    char num[2] = { 0 };
+    num[1] = '\0';
+    int len = 0;
+
+   // strcat(result_reverce, "Hello, world");
+    while (x >= 1) {
+        num[0] = (x%10) + 48;
+        strcat(result_reverce, num);
+        x /= 10;
+        
+    }
+    len = strlen(result_reverce);
+   
+
+    for (int i = 0; i < len; i++) {
+        result[i] = result_reverce[len - 1 - i];
+    }
+    char ex[50] = { 0 };
+   // strcpy(ex, r);
+    strcpy(rez, result);
+}
+
+
+
+
+
 
 PCHAR GetProcessNameByProcessId(HANDLE ProcessId)
 {
@@ -45,15 +78,22 @@ VOID MyCreateProcessNotifyEx(PEPROCESS Process, PPS_CREATE_NOTIFY_INFO CreateInf
     NTSTATUS writeStatus;
     //char* resultString = "Pcocess created. Name: "
     char ProcName[100] = { 0 };
-    char* resultStr = "";
+    char resultStr[100] = {0};
+    char ID[100] = { 0 };
+    HANDLE procID;
+    intptr_t example = 500;
     DbgPrint("Hello! We found process!?!");
     if (CreateInfo != NULL)
     {
         //strcpy(resultStr, "Process is created. Name: ");
         strcpy(ProcName, "Process is created. Name: ");
         strcat(ProcName, PsGetProcessImageFileName(Process));
-        strcat(ProcName, "PID: ");
-        strcat(ProcName, CreateInfo->CreatingThreadId.UniqueProcess);
+        strcat(ProcName, " PID: ");
+        procID = PsGetProcessId(Process);
+        DbgPrint("Process ID is %d\n", procID);
+        example =(intptr_t) procID;
+        myitoa((int)example, ID);
+        strcat(ProcName, ID);
         strcat(ProcName, "\n");
         DbgPrint("Process: %s", ProcName);
         writeStatus = ZwWriteFile(logHandle,

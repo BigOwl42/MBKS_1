@@ -15,8 +15,9 @@ Environment:
 --*/
 
 #include "driver.h"
-#include <stdio.h>
+#include <wdm.h>
 #include <ntddk.h>
+
 
 NTKERNELAPI PCHAR PsGetProcessImageFileName(PEPROCESS Process);
 NTKERNELAPI NTSTATUS PsLookupProcessByProcessId(HANDLE ProcessId, PEPROCESS* Process);
@@ -72,20 +73,31 @@ PCHAR GetProcessNameByProcessId(HANDLE ProcessId)
     return string;
 }
 
-VOID MyCreateProcessNotifyEx(PEPROCESS Process, PPS_CREATE_NOTIFY_INFO CreateInfo)
+VOID MyCreateProcessNotifyEx(PEPROCESS Process, HANDLE pid, PPS_CREATE_NOTIFY_INFO CreateInfo)
 {
+   
     IO_STATUS_BLOCK logWriteStatus;
     NTSTATUS writeStatus;
+   
     //char* resultString = "Pcocess created. Name: "
     char ProcName[100] = { 0 };
     char resultStr[100] = {0};
     char ID[100] = { 0 };
+    PLARGE_INTEGER time = 0;
     HANDLE procID;
     intptr_t example = 500;
+
+    PPS_CREATE_NOTIFY_INFO info = CreateInfo;
+  
+
+    //if (create_status >= 0) DbgPrint("&CreationSatus is not null \n");
     DbgPrint("Hello! We found process!?!");
-    if (CreateInfo != NULL)
+    //DbgPrint("Creation Status is %d \n", (int) (CreateInfo->ParentProcessId));
+    if (info != NULL)
+  
     {
         //strcpy(resultStr, "Process is created. Name: ");
+        KeQuerySystemTime(time);
         strcpy(ProcName, "Process is created. Name: ");
         strcat(ProcName, PsGetProcessImageFileName(Process));
         strcat(ProcName, " PID: ");
@@ -110,8 +122,14 @@ VOID MyCreateProcessNotifyEx(PEPROCESS Process, PPS_CREATE_NOTIFY_INFO CreateInf
     else
     {
        //end of proces
-        strcpy(ProcName, "Process is deleted. Name: ");
+        strcpy(ProcName, "Process is exit. Name: ");
         strcat(ProcName, PsGetProcessImageFileName(Process));
+        strcat(ProcName, " PID: ");
+        procID = PsGetProcessId(Process);
+        DbgPrint("Process ID is %d\n", procID);
+        example = (intptr_t)procID;
+        myitoa((int)example, ID);
+        strcat(ProcName, ID);
         strcat(ProcName, "\n");
         DbgPrint("Process: %s", ProcName);
         writeStatus = ZwWriteFile(logHandle,

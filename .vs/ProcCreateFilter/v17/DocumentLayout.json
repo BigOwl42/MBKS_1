@@ -3,17 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\User\\Desktop\\prog1.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1E3932EF-C9A8-4E35-BBBA-1257F1F8ABF9}|ProcCreateFilter.vcxproj|C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\Driver.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{1E3932EF-C9A8-4E35-BBBA-1257F1F8ABF9}|ProcCreateFilter.vcxproj|solutionrelative:Driver.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1E3932EF-C9A8-4E35-BBBA-1257F1F8ABF9}|ProcCreateFilter.vcxproj|C:\\PROGRAM FILES (X86)\\WINDOWS KITS\\10\\INCLUDE\\10.0.22621.0\\UM\\WINTERNL.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|F:\\Leto2024\\MBKS\\Laba1\\FsFilterX.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,48 +19,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "prog1.cpp",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\prog1.cpp",
-              "RelativeDocumentMoniker": "..\\..\\..\\prog1.cpp",
-              "ToolTip": "C:\\Users\\User\\Desktop\\prog1.cpp",
-              "RelativeToolTip": "..\\..\\..\\prog1.cpp",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAAA0AAAATAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
-              "WhenOpened": "2024-07-25T14:38:12.895Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "winternl.h",
-              "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winternl.h",
-              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winternl.h",
-              "ToolTip": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winternl.h",
-              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\um\\winternl.h",
-              "ViewState": "AQIAACwAAAAAAAAAAAAAADYAAAAXAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2024-07-25T14:05:50.52Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FsFilterX.c",
-              "DocumentMoniker": "F:\\Leto2024\\MBKS\\Laba1\\FsFilterX.c",
-              "ToolTip": "F:\\Leto2024\\MBKS\\Laba1\\FsFilterX.c",
-              "ViewState": "AQIAAGcDAAAAAAAAAAAAAIYBAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2024-07-17T09:15:23.322Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "Driver.c",
               "DocumentMoniker": "C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\Driver.c",
               "RelativeDocumentMoniker": "Driver.c",
-              "ToolTip": "C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\Driver.c",
-              "RelativeToolTip": "Driver.c",
-              "ViewState": "AQIAAGwAAAAAAAAAAAAAAEgAAAASAAAA",
+              "ToolTip": "C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\Driver.c*",
+              "RelativeToolTip": "Driver.c*",
+              "ViewState": "AQIAAIEAAAAAAAAAAAAAAIwAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-07-15T09:01:40.515Z",
               "EditorCaption": ""

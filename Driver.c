@@ -78,27 +78,43 @@ VOID MyCreateProcessNotifyEx(PEPROCESS Process, HANDLE pid, PPS_CREATE_NOTIFY_IN
    
     IO_STATUS_BLOCK logWriteStatus;
     NTSTATUS writeStatus;
-   
     //char* resultString = "Pcocess created. Name: "
     char ProcName[100] = { 0 };
     char resultStr[100] = {0};
     char ID[100] = { 0 };
-    PLARGE_INTEGER time = 0;
+    //PLARGE_INTEGER time = 0;
+    LARGE_INTEGER time; 
+    LARGE_INTEGER local_time;
+    TIME_FIELDS real_time;
     HANDLE procID;
     intptr_t example = 500;
-
+    char  char_hour[4] = { 0 };
+    char  char_min[4] = { 0 };
+    char  char_sec[4] = { 0 };
     PPS_CREATE_NOTIFY_INFO info = CreateInfo;
   
 
     //if (create_status >= 0) DbgPrint("&CreationSatus is not null \n");
     DbgPrint("Hello! We found process!?!");
+    KeQuerySystemTime(&time);
+    ExSystemTimeToLocalTime(&time, &local_time);
+    time.QuadPart /= 10000000;
+    RtlTimeToTimeFields(&local_time, &real_time);
+    myitoa(real_time.Hour, char_hour);
+    strcpy(ProcName, char_hour);
+    strcat(ProcName, ":");
+    myitoa(real_time.Minute, char_min);
+    strcat(ProcName, char_min);
+    strcat(ProcName, ":");
+    myitoa(real_time.Second, char_sec);
+    strcat(ProcName, char_sec);
     //DbgPrint("Creation Status is %d \n", (int) (CreateInfo->ParentProcessId));
     if (info != NULL)
   
     {
         //strcpy(resultStr, "Process is created. Name: ");
-        KeQuerySystemTime(time);
-        strcpy(ProcName, "Process is created. Name: ");
+       
+        strcat(ProcName, "     Process is created. Name: ");
         strcat(ProcName, PsGetProcessImageFileName(Process));
         strcat(ProcName, " PID: ");
         procID = PsGetProcessId(Process);
@@ -122,7 +138,7 @@ VOID MyCreateProcessNotifyEx(PEPROCESS Process, HANDLE pid, PPS_CREATE_NOTIFY_IN
     else
     {
        //end of proces
-        strcpy(ProcName, "Process is exit. Name: ");
+        strcat(ProcName, "     Process is exit. Name: ");
         strcat(ProcName, PsGetProcessImageFileName(Process));
         strcat(ProcName, " PID: ");
         procID = PsGetProcessId(Process);

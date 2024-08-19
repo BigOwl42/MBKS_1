@@ -1,9 +1,9 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\",
+  "WorkspaceRootPath": "C:\\Data\\Study\\6\\MBKS\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1E3932EF-C9A8-4E35-BBBA-1257F1F8ABF9}|ProcCreateFilter.vcxproj|C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\Driver.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "AbsoluteMoniker": "D:0:0:{1E3932EF-C9A8-4E35-BBBA-1257F1F8ABF9}|ProcCreateFilter.vcxproj|C:\\Data\\Study\\6\\MBKS\\Driver.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{1E3932EF-C9A8-4E35-BBBA-1257F1F8ABF9}|ProcCreateFilter.vcxproj|solutionrelative:Driver.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
@@ -20,11 +20,11 @@
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Driver.c",
-              "DocumentMoniker": "C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\Driver.c",
+              "DocumentMoniker": "C:\\Data\\Study\\6\\MBKS\\Driver.c",
               "RelativeDocumentMoniker": "Driver.c",
-              "ToolTip": "C:\\Users\\User\\Desktop\\MBKS\\Laba1\\ProcCreateFilter\\Driver.c",
+              "ToolTip": "C:\\Data\\Study\\6\\MBKS\\Driver.c",
               "RelativeToolTip": "Driver.c",
-              "ViewState": "AQIAAIEAAAAAAAAAAAAAAIwAAAAfAAAA",
+              "ViewState": "AgIAABAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-07-15T09:01:40.515Z",
               "EditorCaption": ""

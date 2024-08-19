@@ -1,9 +1,13 @@
 ﻿  Building 'ProcCreateFilter' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Debug\ProcCreateFilter.inf
-  Stamping [Version] section with DriverVer=03/04/2024,19.2.41.458
-  ProcCreateFilter.vcxproj -> H:\3\6\MBKS\Laba1\ProcCreateFilter\x64\Debug\ProcCreateFilter.sys
+  Stamping [Version] section with DriverVer=08/11/2024,11.34.30.194
+  Driver.c
+  ProcCreateFilter.vcxproj -> C:\Users\Kaplan\Desktop\Разное\Люда\MBKS\MBKS_1\x64\Debug\ProcCreateFilter.sys
+  Done Adding Additional Store
+  Successfully signed: C:\Users\Kaplan\Desktop\\\MBKS\MBKS_1\x64\Debug\ProcCreateFilter.sys
+  
   Driver is 'Universal'.
-  .........................
+  ........................
   Signability test complete.
   
   Errors:
@@ -13,7 +17,9 @@
   None
   
   Catalog generation complete.
-  H:\3\6\MBKS\Laba1\ProcCreateFilter\x64\Debug\ProcCreateFilter\proccreatefilter.cat
+  C:\Users\Kaplan\Desktop\Разное\Люда\MBKS\MBKS_1\x64\Debug\ProcCreateFilter\proccreatefilter.cat
   Done Adding Additional Store
-  Successfully signed: H:\3\6\MBKS\Laba1\ProcCreateFilter\x64\Debug\ProcCreateFilter\proccreatefilter.cat
+  Successfully signed: C:\Users\Kaplan\Desktop\\\MBKS\MBKS_1\x64\Debug\ProcCreateFilter\proccreatefilter.cat
   
+  "pwsh.exe" не является внутренней или внешней
+  командой, исполняемой программой или пакетным файлом.

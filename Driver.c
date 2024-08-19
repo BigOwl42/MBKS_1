@@ -15,192 +15,107 @@ Environment:
 --*/
 
 #include "driver.h"
-#include <wdm.h>
+#include <stdio.h>
 #include <ntddk.h>
-
 
 NTKERNELAPI PCHAR PsGetProcessImageFileName(PEPROCESS Process);
 NTKERNELAPI NTSTATUS PsLookupProcessByProcessId(HANDLE ProcessId, PEPROCESS* Process);
 BOOLEAN notifyCreateProcess();
-void myitoa(int x, char* rez);
 HANDLE logHandle;
 BOOLEAN isNotifyCreate = 1;
 
 
-void myitoa(int x, char* rez) {
-    IO_STATUS_BLOCK logWriteStatus;
-    NTSTATUS writeStatus;
-    char result_reverce[40] = { 0 };
-    char result[40] = {0};
-    char num[2] = { 0 };
-    num[1] = '\0';
-    int len = 0;
+UNICODE_STRING DeviceName = RTL_CONSTANT_STRING(L"\\Device\\mydeviveio");
+PDEVICE_OBJECT device = NULL;
+UNICODE_STRING SymLinkName = RTL_CONSTANT_STRING(L"\\??\\mydevicelinkio");
 
-   // strcat(result_reverce, "Hello, world");
-    while (x >= 1) {
-        num[0] = (x%10) + 48;
-        strcat(result_reverce, num);
-        x /= 10;
-        
+NTSTATUS DispatchPassThru(PDEVICE_OBJECT Device, PIRP Irp) {
+    PIO_STACK_LOCATION irpsp = IoGetCurrentIrpStackLocation(Irp);
+    
+    NTSTATUS status = STATUS_SUCCESS;
+    switch (irpsp->MajorFunction) {
+    case IRP_MJ_CREATE:
+        DbgPrint("Create request");
+        break;
+    case IRP_MJ_CLOSE:
+        DbgPrint("Close request");
+        break;
+    case IRP_MJ_READ:
+        DbgPrint("Read request");
+        break;
+    default:
+        break;
     }
-    len = strlen(result_reverce);
-   
 
-    for (int i = 0; i < len; i++) {
-        result[i] = result_reverce[len - 1 - i];
-    }
-    char ex[50] = { 0 };
-   // strcpy(ex, r);
-    strcpy(rez, result);
+    Irp->IoStatus.Information = 0;
+    Irp->IoStatus.Status = status;
+    IoCompleteRequest(Irp, IO_NO_INCREMENT);
+    return status;
 }
 
+/*
 
+NTSTATUS DispatchDevCTL(PDEVICE_OBJECT Device_Object, PIRP Irp) {    // 16:58
 
+    PIO_STACK_LOCATION irpsp = IoGetCurrentIrpStackLocation(Irp);
+    NTSTATUS status = STATUS_SUCCESS;
+    ULONG returnLength = 0;
+    PVOID buffer = Irp->AssociatedIrp.SystemBuffer;
+    ULONG inLength = irpsp->Parameters.DeviceIoControl.InputBufferLength;
+    ULONG outLength = irpsp->Parameters.DeviceIoControl.OutputBufferLength;
+    WCHAR* demo = L"sample returned from driver";
 
-
-
-PCHAR GetProcessNameByProcessId(HANDLE ProcessId)
-{
-    NTSTATUS st = STATUS_UNSUCCESSFUL;
-    PEPROCESS ProcessObj = NULL;
-    PCHAR string = NULL;
-    st = PsLookupProcessByProcessId(ProcessId, &ProcessObj);
-    if (NT_SUCCESS(st))
-    {
-        string = PsGetProcessImageFileName(ProcessObj);
-        ObfDereferenceObject(ProcessObj);
+    switch (irpsp->Parameters.DeviceIoControl.IoControlCode) {
+    case DEVICE_SEND:
+        KdPrint(("send data is %ws \r\n", buffer));
+        returnLength = (wcsnlen(buffer, 511) + 1) * 2;
+        break;
+    case DEVICE_REC:
+        wcsncpy(buffer, demo, 511);
+        returnLength = (wcsnlen(buffer, 511) + 1) * 2;
+        break;
+    default:
+        status = STATUS_INVALID_PARAMETER;
+        break;
     }
-    return string;
+    Irp->IoStatus.Status = status;
+    Irp->IoStatus.Information = returnLength;
+    IoCompleteRequest(Irp, IO_NO_INCREMENT);
+    return status;
 }
 
-VOID MyCreateProcessNotifyEx(PEPROCESS Process, HANDLE pid, PPS_CREATE_NOTIFY_INFO CreateInfo)
-{
-   
-    IO_STATUS_BLOCK logWriteStatus;
-    NTSTATUS writeStatus;
-    //char* resultString = "Pcocess created. Name: "
-    char ProcName[100] = { 0 };
-    char resultStr[100] = {0};
-    char ID[100] = { 0 };
-    //PLARGE_INTEGER time = 0;
-    LARGE_INTEGER time; 
-    LARGE_INTEGER local_time;
-    TIME_FIELDS real_time;
-    HANDLE procID;
-    intptr_t example = 500;
-    char  char_hour[4] = { 0 };
-    char  char_min[4] = { 0 };
-    char  char_sec[4] = { 0 };
-    PPS_CREATE_NOTIFY_INFO info = CreateInfo;
-  
-
-    //if (create_status >= 0) DbgPrint("&CreationSatus is not null \n");
-    DbgPrint("Hello! We found process!?!");
-    KeQuerySystemTime(&time);
-    ExSystemTimeToLocalTime(&time, &local_time);
-    time.QuadPart /= 10000000;
-    RtlTimeToTimeFields(&local_time, &real_time);
-    myitoa(real_time.Hour, char_hour);
-    strcpy(ProcName, char_hour);
-    strcat(ProcName, ":");
-    myitoa(real_time.Minute, char_min);
-    strcat(ProcName, char_min);
-    strcat(ProcName, ":");
-    myitoa(real_time.Second, char_sec);
-    strcat(ProcName, char_sec);
-    //DbgPrint("Creation Status is %d \n", (int) (CreateInfo->ParentProcessId));
-    if (info != NULL)
-  
-    {
-        //strcpy(resultStr, "Process is created. Name: ");
-       
-        strcat(ProcName, "     Process is created. Name: ");
-        strcat(ProcName, PsGetProcessImageFileName(Process));
-        strcat(ProcName, " PID: ");
-        procID = PsGetProcessId(Process);
-        DbgPrint("Process ID is %d\n", procID);
-        example =(intptr_t) procID;
-        myitoa((int)example, ID);
-        strcat(ProcName, ID);
-        strcat(ProcName, "\n");
-        DbgPrint("Process: %s", ProcName);
-        writeStatus = ZwWriteFile(logHandle,
-            NULL,
-            NULL,
-            NULL,
-            &logWriteStatus,
-            &ProcName,
-            strlen(ProcName),
-            NULL,
-            NULL);
-        DbgPrint("Result of write: %X", writeStatus);
-    }
-    else
-    {
-       //end of proces
-        strcat(ProcName, "     Process is exit. Name: ");
-        strcat(ProcName, PsGetProcessImageFileName(Process));
-        strcat(ProcName, " PID: ");
-        procID = PsGetProcessId(Process);
-        DbgPrint("Process ID is %d\n", procID);
-        example = (intptr_t)procID;
-        myitoa((int)example, ID);
-        strcat(ProcName, ID);
-        strcat(ProcName, "\n");
-        DbgPrint("Process: %s", ProcName);
-        writeStatus = ZwWriteFile(logHandle,
-            NULL,
-            NULL,
-            NULL,
-            &logWriteStatus,
-            &ProcName,
-            strlen(ProcName),
-            NULL,
-            NULL);
-        DbgPrint("Result of write: %X", writeStatus);
-    }
-}
+ */ 
 
 VOID UnDriver(PDRIVER_OBJECT driver)
 {
-    
-    ZwClose(logHandle);
+
+    IoDeleteSymbolicLink(&SymLinkName);
+    IoDeleteDevice(device);
     DbgPrint("Good Bye from kernel driver!");
-    PDRIVER_OBJECT copy = driver;
-    PsSetCreateProcessNotifyRoutineEx((PCREATE_PROCESS_NOTIFY_ROUTINE_EX)MyCreateProcessNotifyEx, TRUE);
 }
 
 NTSTATUS DriverEntry(IN PDRIVER_OBJECT Driver, PUNICODE_STRING RegistryPath)
 {
     DbgPrint("Hello from Windows kernel mode!!?\n");
-    notifyCreateProcess();
-    NTSTATUS status = PsSetCreateProcessNotifyRoutineEx((PCREATE_PROCESS_NOTIFY_ROUTINE_EX)MyCreateProcessNotifyEx, FALSE);
-    DbgPrint("We created ProcessRoutine\n");
-    DbgPrint("Result of create process: %X", status);
     Driver->DriverUnload = UnDriver;
-//    DbgPrint("Hello from Windows kernel mode!!?");
-    return STATUS_SUCCESS;
-}
+    //Создаём девайс
+    NTSTATUS status = IoCreateDevice(Driver, 0, &DeviceName, FILE_DEVICE_UNKNOWN, FILE_DEVICE_SECURE_OPEN, FALSE, &device);
 
-BOOLEAN notifyCreateProcess() {
-    NTSTATUS createFileStatus;
-    OBJECT_ATTRIBUTES  fileAttr;
-    UNICODE_STRING     fileName;
-    IO_STATUS_BLOCK ioStatusBlock;
-    RtlInitUnicodeString(&fileName, L"\\??\\D:\\log2.txt");
-    InitializeObjectAttributes(&fileAttr, &fileName,
-        OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE,
-        NULL, NULL);
-    createFileStatus = ZwCreateFile(&logHandle,
-        GENERIC_WRITE,
-        &fileAttr,
-        &ioStatusBlock,
-        NULL,
-        FILE_ATTRIBUTE_NORMAL,
-        0,
-        FILE_CREATE,
-        FILE_SYNCHRONOUS_IO_NONALERT,
-        NULL, 0);
-    DbgPrint("Result of open file is %X\n", createFileStatus);
-    return createFileStatus;
+    if (!NT_SUCCESS(status)) {
+        DbgPrint("Error of create device!\n");
+    }
+    //Создаём ссылку на девайс
+    status = IoCreateSymbolicLink(&SymLinkName, &DeviceName);
+    if (!NT_SUCCESS(status)) {
+        DbgPrint("Error of create simbolic link!\n");
+        IoDeleteDevice(device);
+    }
+
+    for (int i = 0; i < IRP_MJ_MAXIMUM_FUNCTION; i++) {
+        Driver->MajorFunction[i] = DispatchPassThru;
+    }
+
+
+    DbgPrint("Success load");
+    return STATUS_SUCCESS;
 }

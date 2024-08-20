@@ -1,0 +1,4 @@
+﻿  ControlApp.cpp
+C:\Data\Study\6\MBKS\MBKS_1\UserApp\ControlApp\ControlApp\ControlApp.cpp(58,96): warning C4267: аргумент: преобразование из "size_t" в "DWORD"; возможна потеря данных
+C:\Data\Study\6\MBKS\MBKS_1\UserApp\ControlApp\ControlApp\ControlApp.cpp(66,1): warning C4715: sendToDevice: значение возвращается не при всех путях выполнения
+  ControlApp.vcxproj -> C:\Data\Study\6\MBKS\MBKS_1\UserApp\ControlApp\x64\Debug\ControlApp.exe

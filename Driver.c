@@ -15,15 +15,49 @@ Environment:
 --*/
 
 #include "driver.h"
-#include <stdio.h>
-
+#include <wdm.h>
 #include <ntddk.h>
+
 
 NTKERNELAPI PCHAR PsGetProcessImageFileName(PEPROCESS Process);
 NTKERNELAPI NTSTATUS PsLookupProcessByProcessId(HANDLE ProcessId, PEPROCESS* Process);
 BOOLEAN notifyCreateProcess();
+void myitoa(int x, char* rez);
 HANDLE logHandle;
 BOOLEAN isNotifyCreate = 1;
+
+
+void myitoa(int x, char* rez) {
+    IO_STATUS_BLOCK logWriteStatus;
+    NTSTATUS writeStatus;
+    char result_reverce[40] = { 0 };
+    char result[40] = {0};
+    char num[2] = { 0 };
+    num[1] = '\0';
+    int len = 0;
+
+   // strcat(result_reverce, "Hello, world");
+    while (x >= 1) {
+        num[0] = (x%10) + 48;
+        strcat(result_reverce, num);
+        x /= 10;
+        
+    }
+    len = strlen(result_reverce);
+   
+
+    for (int i = 0; i < len; i++) {
+        result[i] = result_reverce[len - 1 - i];
+    }
+    char ex[50] = { 0 };
+   // strcpy(ex, r);
+    strcpy(rez, result);
+}
+
+
+
+
+
 
 PCHAR GetProcessNameByProcessId(HANDLE ProcessId)
 {
@@ -39,21 +73,55 @@ PCHAR GetProcessNameByProcessId(HANDLE ProcessId)
     return string;
 }
 
-VOID MyCreateProcessNotifyEx(PEPROCESS Process, PPS_CREATE_NOTIFY_INFO CreateInfo)
+VOID MyCreateProcessNotifyEx(PEPROCESS Process, HANDLE pid, PPS_CREATE_NOTIFY_INFO CreateInfo)
 {
+   
     IO_STATUS_BLOCK logWriteStatus;
     NTSTATUS writeStatus;
     //char* resultString = "Pcocess created. Name: "
     char ProcName[100] = { 0 };
-    char* resultStr = "";
+    char resultStr[100] = {0};
+    char ID[100] = { 0 };
+    //PLARGE_INTEGER time = 0;
+    LARGE_INTEGER time; 
+    LARGE_INTEGER local_time;
+    TIME_FIELDS real_time;
+    HANDLE procID;
+    intptr_t example = 500;
+    char  char_hour[4] = { 0 };
+    char  char_min[4] = { 0 };
+    char  char_sec[4] = { 0 };
+    PPS_CREATE_NOTIFY_INFO info = CreateInfo;
+  
+
+    //if (create_status >= 0) DbgPrint("&CreationSatus is not null \n");
     DbgPrint("Hello! We found process!?!");
-    if (CreateInfo != NULL)
+    KeQuerySystemTime(&time);
+    ExSystemTimeToLocalTime(&time, &local_time);
+    time.QuadPart /= 10000000;
+    RtlTimeToTimeFields(&local_time, &real_time);
+    myitoa(real_time.Hour, char_hour);
+    strcpy(ProcName, char_hour);
+    strcat(ProcName, ":");
+    myitoa(real_time.Minute, char_min);
+    strcat(ProcName, char_min);
+    strcat(ProcName, ":");
+    myitoa(real_time.Second, char_sec);
+    strcat(ProcName, char_sec);
+    //DbgPrint("Creation Status is %d \n", (int) (CreateInfo->ParentProcessId));
+    if (info != NULL)
+  
     {
         //strcpy(resultStr, "Process is created. Name: ");
-        strcpy(ProcName, "Process is created. Name: ");
+       
+        strcat(ProcName, "     Process is created. Name: ");
         strcat(ProcName, PsGetProcessImageFileName(Process));
-        strcat(ProcName, "PID: ");
-        strcat(ProcName, CreateInfo->CreatingThreadId.UniqueProcess);
+        strcat(ProcName, " PID: ");
+        procID = PsGetProcessId(Process);
+        DbgPrint("Process ID is %d\n", procID);
+        example =(intptr_t) procID;
+        myitoa((int)example, ID);
+        strcat(ProcName, ID);
         strcat(ProcName, "\n");
         DbgPrint("Process: %s", ProcName);
         writeStatus = ZwWriteFile(logHandle,
@@ -70,8 +138,14 @@ VOID MyCreateProcessNotifyEx(PEPROCESS Process, PPS_CREATE_NOTIFY_INFO CreateInf
     else
     {
        //end of proces
-        strcpy(ProcName, "Process is deleted. Name: ");
+        strcat(ProcName, "     Process is exit. Name: ");
         strcat(ProcName, PsGetProcessImageFileName(Process));
+        strcat(ProcName, " PID: ");
+        procID = PsGetProcessId(Process);
+        DbgPrint("Process ID is %d\n", procID);
+        example = (intptr_t)procID;
+        myitoa((int)example, ID);
+        strcat(ProcName, ID);
         strcat(ProcName, "\n");
         DbgPrint("Process: %s", ProcName);
         writeStatus = ZwWriteFile(logHandle,

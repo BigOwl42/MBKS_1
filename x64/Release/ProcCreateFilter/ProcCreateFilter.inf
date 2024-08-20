@@ -8,7 +8,7 @@ Class=USBDevice
 ClassGuid={88BAE032-5A81-49f0-BC3D-A4FF138216D6}
 Provider=%ManufacturerName%
 CatalogFile=ProcCreateFilter.cat
-DriverVer = 07/19/2024,14.48.6.352
+DriverVer = 07/30/2024,15.48.5.369
 PnpLockDown=1
 
 [DestinationDirs]

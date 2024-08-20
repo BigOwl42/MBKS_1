@@ -1,0 +1,19 @@
+﻿  Building 'ProcCreateFilter' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
+  Stamping x64\Debug\ProcCreateFilter.inf
+  Stamping [Version] section with DriverVer=03/04/2024,19.2.41.458
+  ProcCreateFilter.vcxproj -> H:\3\6\MBKS\Laba1\ProcCreateFilter\x64\Debug\ProcCreateFilter.sys
+  Driver is 'Universal'.
+  .........................
+  Signability test complete.
+  
+  Errors:
+  None
+  
+  Warnings:
+  None
+  
+  Catalog generation complete.
+  H:\3\6\MBKS\Laba1\ProcCreateFilter\x64\Debug\ProcCreateFilter\proccreatefilter.cat
+  Done Adding Additional Store
+  Successfully signed: H:\3\6\MBKS\Laba1\ProcCreateFilter\x64\Debug\ProcCreateFilter\proccreatefilter.cat
+  

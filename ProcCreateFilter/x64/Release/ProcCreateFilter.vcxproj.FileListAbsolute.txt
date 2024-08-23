@@ -1,1 +1,1 @@
-C:\Users\User\Desktop\MBKS\Laba1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys
+C:\Data\Study\6\MBKS\MBKS_1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys

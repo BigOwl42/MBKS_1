@@ -2,7 +2,7 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
-      <FullPath>C:\Data\Study\6\MBKS\MBKS_1\IOCTL_example\x64\Release\ProcCreateFilter.sys</FullPath>
+      <FullPath>C:\Data\Study\6\MBKS\MBKS_1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys</FullPath>
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

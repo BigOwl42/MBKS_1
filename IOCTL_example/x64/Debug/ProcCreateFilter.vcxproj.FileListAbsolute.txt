@@ -1,2 +1,0 @@
-H:\3\6\MBKS\Laba1\ProcCreateFilter\x64\Debug\ProcCreateFilter.sys
-C:\Users\Kaplan\Desktop\Разное\Люда\MBKS\MBKS_1\x64\Debug\ProcCreateFilter.sys

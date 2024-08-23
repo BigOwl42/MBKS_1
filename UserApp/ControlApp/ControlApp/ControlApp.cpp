@@ -1,16 +1,15 @@
 ﻿// ControlApp.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
-
-
 //Пользовательское приложение для взаимодействия с драйвером
 
 #include <iostream>
 #include <Windows.h>
 #include <fileapi.h>
 using namespace std;
-#define DEVICE_SEND CTL_CODE(FILE_DEVICE_UNKNOWN, 0x801, METHOD_BUFFERED, FILE_WRITE_DATA)
+
+#define CREATE_NOTIFY CTL_CODE(FILE_DEVICE_UNKNOWN, 0x801, METHOD_BUFFERED, FILE_WRITE_DATA)
 #define DEVICE_REC CTL_CODE(FILE_DEVICE_UNKNOWN, 0x802, METHOD_BUFFERED, FILE_READ_DATA)
 int closeDevice();
-int sendToDevice();
+int sendToDevice(int command);
 int readFromDevice();
 HANDLE devicehandle = NULL;
 //Хорошо бы сделать ее не глобальной...
@@ -18,30 +17,34 @@ HANDLE devicehandle = NULL;
 int main()
 {
     int command;
-
     devicehandle = CreateFile(L"\\\\.\\mydevicelinkio", GENERIC_ALL, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, 0);
     if (devicehandle == INVALID_HANDLE_VALUE) {
-        cout << "Error of open device "<<GetLastError();
+        cout << "Error of open device. Enter eny key to exit"<<GetLastError();
         cin >> command;
         return 0;
     }
-    cout << "Sucess open device. Enter any to test send function" << endl;
-    cin >> command;
-    if (sendToDevice() != 0) {
-        cout << "Error of send to device " << GetLastError();
+    while (true) {
+        cout << "Sucess open device. Сhose the command:" << endl
+            << "1 - Create notificator for create process" << endl
+            << "2 - Create notificator for exit process" << endl
+            << "3 - Delete notificator for create process" << endl
+            << "4 - Delete notificator for exit process" << endl
+            << "0 - Exit";
         cin >> command;
-        return 0;
+        if (command == 0) {
+            cout << "Good bye!" << endl;
+            closeDevice();
+            return 0;
+        }
+        if (sendToDevice(command) != 0) {
+            cout << "Error of send to device " << GetLastError();
+            wcin >> command;
+            return 0;
+        }
+        cout << "Sucess send to device" << endl;
     }
-    cout << "Sucess send to device. Enter any to test recive function" << endl;
-    cin >> command;
-    if (readFromDevice() != 0) {
-        cout << "Error of recive from device " << GetLastError();
-        cin >> command;
-        return 0;
-    }
-    cout << "Sucess send to device. Enter any to close device" << endl;
-    cin >> command;
     closeDevice();
+    return 0;
 }
 
 int closeDevice() {
@@ -51,11 +54,12 @@ int closeDevice() {
     return 1;
 }
 
-int sendToDevice() {
-    const WCHAR* message = L"send from user app";
+int sendToDevice(int command) {
+    WCHAR message[2];
+    _itow_s(command, message, 2, 10);
     ULONG returnLenght = 0;
     if (devicehandle != INVALID_HANDLE_VALUE && devicehandle != NULL) {
-        if (!DeviceIoControl(devicehandle, DEVICE_SEND, (LPVOID)message, (wcslen(message) + 1) * 2, NULL, 0, &returnLenght, 0)) {
+        if (!DeviceIoControl(devicehandle, CREATE_NOTIFY, (LPVOID)message, (wcslen(message) + 1) * 2, NULL, 0, &returnLenght, 0)) {
             cout << "Device control error" << endl;
             return 1;
         }
@@ -70,24 +74,15 @@ int readFromDevice() {
     ULONG returnLenght = 0;
     if (devicehandle != INVALID_HANDLE_VALUE && devicehandle != NULL) {
       
-        if (!DeviceIoControl(devicehandle, DEVICE_REC, NULL, 0, message, 1024*sizeof(WCHAR), &returnLenght, 0)) {
+        if (!DeviceIoControl(devicehandle, DEVICE_REC, NULL, 0, message, 1024 * sizeof(WCHAR), &returnLenght, 0)) {
             cout << "Device control error" << endl;
             return 1;
         }
         else
-            cout << "Success read from device. Message is: " << message << endl;
+            cout << "Success read from device. Message is: ";
+            printf("%ws\n", message);
         return 0;
     }
     return 1;
 }
 
-// Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
-// Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
-
-// Советы по началу работы 
-//   1. В окне обозревателя решений можно добавлять файлы и управлять ими.
-//   2. В окне Team Explorer можно подключиться к системе управления версиями.
-//   3. В окне "Выходные данные" можно просматривать выходные данные сборки и другие сообщения.
-//   4. В окне "Список ошибок" можно просматривать ошибки.
-//   5. Последовательно выберите пункты меню "Проект" > "Добавить новый элемент", чтобы создать файлы кода, или "Проект" > "Добавить существующий элемент", чтобы добавить в проект существующие файлы кода.
-//   6. Чтобы снова открыть этот проект позже, выберите пункты меню "Файл" > "Открыть" > "Проект" и выберите SLN-файл.

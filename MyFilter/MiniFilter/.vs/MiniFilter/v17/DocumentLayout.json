@@ -1,0 +1,53 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Data\\Study\\6\\MBKS\\MBKS_1\\MyFilter\\MiniFilter\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8AC8FE-5803-41B5-B05B-3DE64CCDD4B1}|MiniFilter\\MiniFilter.vcxproj|C:\\Data\\Study\\6\\MBKS\\MBKS_1\\MyFilter\\MiniFilter\\MiniFilter\\filter.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{AF8AC8FE-5803-41B5-B05B-3DE64CCDD4B1}|MiniFilter\\MiniFilter.vcxproj|solutionrelative:MiniFilter\\filter.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{AF8AC8FE-5803-41B5-B05B-3DE64CCDD4B1}|MiniFilter\\MiniFilter.vcxproj|C:\\PROGRAM FILES (X86)\\WINDOWS KITS\\10\\INCLUDE\\10.0.22621.0\\KM\\NTIFS.H||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ntifs.h",
+              "DocumentMoniker": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\km\\ntifs.h",
+              "RelativeDocumentMoniker": "..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\km\\ntifs.h",
+              "ToolTip": "C:\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\km\\ntifs.h",
+              "RelativeToolTip": "..\\..\\..\\..\\..\\..\\..\\Program Files (x86)\\Windows Kits\\10\\Include\\10.0.22621.0\\km\\ntifs.h",
+              "ViewState": "AgIAAEYAAAAAAAAAAAAkwFQAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2024-08-27T12:18:28.227Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "filter.c",
+              "DocumentMoniker": "C:\\Data\\Study\\6\\MBKS\\MBKS_1\\MyFilter\\MiniFilter\\MiniFilter\\filter.c",
+              "RelativeDocumentMoniker": "MiniFilter\\filter.c",
+              "ToolTip": "C:\\Data\\Study\\6\\MBKS\\MBKS_1\\MyFilter\\MiniFilter\\MiniFilter\\filter.c",
+              "RelativeToolTip": "MiniFilter\\filter.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAJEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2024-08-27T12:11:17.998Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

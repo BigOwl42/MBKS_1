@@ -1,6 +1,6 @@
 ﻿  Building 'ProcCreateFilter' with toolset 'WindowsKernelModeDriver10.0' and the 'Universal' target platform.
   Stamping x64\Release\ProcCreateFilter.inf
-  Stamping [Version] section with DriverVer=08/23/2024,14.36.56.614
+  Stamping [Version] section with DriverVer=09/02/2024,19.13.52.682
   Driver.c
   ProcCreateFilter.vcxproj -> C:\Data\Study\6\MBKS\MBKS_1\ProcCreateFilter\x64\Release\ProcCreateFilter.sys
   Done Adding Additional Store

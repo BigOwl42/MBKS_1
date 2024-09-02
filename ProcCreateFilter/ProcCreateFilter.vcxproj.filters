@@ -20,7 +20,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ReadMe.txt" />
-    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Inf Include="ProcCreateFilter.inf">

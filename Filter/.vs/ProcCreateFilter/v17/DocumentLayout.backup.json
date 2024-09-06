@@ -30,8 +30,7 @@
               "RelativeToolTip": "ProcCreateFilter.inf",
               "ViewState": "AgIAAAAAAAAAAAAAAAAuwA0AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.002933|",
-              "WhenOpened": "2024-09-02T13:35:51.675Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-09-02T13:35:51.675Z"
             },
             {
               "$type": "Document",
@@ -39,9 +38,9 @@
               "Title": "Driver.c",
               "DocumentMoniker": "C:\\Data\\Study\\6\\MBKS\\MBKS_1\\Filter\\Driver.c",
               "RelativeDocumentMoniker": "Driver.c",
-              "ToolTip": "C:\\Data\\Study\\6\\MBKS\\MBKS_1\\Filter\\Driver.c*",
-              "RelativeToolTip": "Driver.c*",
-              "ViewState": "AgIAAGwAAAAAAAAAAAAAAHsAAABVAAAAAAAAAA==",
+              "ToolTip": "C:\\Data\\Study\\6\\MBKS\\MBKS_1\\Filter\\Driver.c",
+              "RelativeToolTip": "Driver.c",
+              "ViewState": "AgIAALcAAAAAAAAAAAAkwIMAAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2024-07-15T09:01:40.515Z",
               "EditorCaption": ""

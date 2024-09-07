@@ -1,6 +1,6 @@
 ﻿// ControlApp.cpp : Этот файл содержит функцию "main". Здесь начинается и заканчивается выполнение программы.
 //Пользовательское приложение для взаимодействия с драйвером
-
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <Windows.h>
 #include <fileapi.h>
@@ -11,12 +11,16 @@ using namespace std;
 int closeDevice();
 int sendToDevice(int command);
 int readFromDevice();
+void writeRight(char* name, int type, int level);
 HANDLE devicehandle = NULL;
 //Хорошо бы сделать ее не глобальной...
 
 int main()
 {
     int command;
+    char name[256];
+    int type;
+    int level;
     devicehandle = CreateFile(L"\\\\.\\mydevicelinkio", GENERIC_ALL, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_SYSTEM, 0);
     if (devicehandle == INVALID_HANDLE_VALUE) {
         cout << "Error of open device. Enter eny key to exit"<<GetLastError();
@@ -29,12 +33,30 @@ int main()
             << "2 - Create notificator for exit process" << endl
             << "3 - Delete notificator for create process" << endl
             << "4 - Delete notificator for exit process" << endl
+            << "5 - Create new right" << endl
             << "0 - Exit";
         cin >> command;
         if (command == 0) {
             cout << "Good bye!" << endl;
             closeDevice();
             return 0;
+        }
+        if (command == 5) {
+            cout << endl << "For what type of ... you want create right" << endl
+                << "0 - Object" << endl
+                << "1 - Subject" << endl;
+            cin >> type;
+            cout << endl << "Input the name: " << endl;
+            //ввод имени
+            cin >> name;
+            for (int i=0; i<strlen(name); i++)
+                name[i] = toupper(name[i]);
+            //запись в переменную в верхнем регистре
+            cout << endl << "Input integrity level (from 0 to 7) " << endl;
+            cin >> level;
+            if (level < 0) level = 0;
+            if (level > 7) level = 7;
+            writeRight(name, type, level);
         }
         if (sendToDevice(command) != 0) {
             cout << "Error of send to device " << GetLastError();
@@ -86,3 +108,18 @@ int readFromDevice() {
     return 1;
 }
 
+void writeRight(char* name, int type, int level) {
+    char cType[10] = { 0 };
+    int status;
+    if (type == 0)
+        strcpy(cType, "Object\0");
+    else
+        strcpy(cType, "Subject\0");
+    FILE* rightsFile = fopen("C:\\Users\\Owl\\Desktop\\Rights.json", "a");
+    fprintf(rightsFile, "{\n");
+    fprintf(rightsFile, "\"Type\" : \"%s\" ,\n", cType);
+    fprintf(rightsFile, "\"Name\" : \"%s\" ,\n", name);
+    fprintf(rightsFile, "\"Level\" : \"%d\"\n", level);
+    status = fprintf(rightsFile, "}");
+    fclose(rightsFile);
+}
